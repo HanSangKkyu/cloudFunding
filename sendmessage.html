@@ -10,31 +10,31 @@
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js">
       function post_alarm() {
-    var d = {
-        "project_num": $('#projectNum').val(),
-        "receiver": $('#receiver').val(),
-        "sender": $('#sender').val(),
-        "message": $('#message').val()
-    };
+        var d = {
+            "project_num": $('#projectNum').val(),
+            "receiver": $('#receiver').val(),
+            "sender": $('#sender').val(),
+            "message": $('#message').val()
+        };
 
-    console.log(d);
+        console.log(d);
 
-    $.ajax({
-        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
-        type: 'POST',
-        dataType: "JSON",
-        contentType: "application/json",
-        data: JSON.stringify(d),
-        crossDomain: true,
-        cache: false,
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
-}
+        $.ajax({
+            url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+            type: 'POST',
+            dataType: "JSON",
+            contentType: "application/json",
+            data: JSON.stringify(d),
+            crossDomain: true,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
     //후원자 알람 보내는 함수 
 </script>
 
@@ -50,7 +50,7 @@
                 <input class="span3" id="sender" name="sender" placeholder="보내는 사람" type="text">
                 <input class="span3" id="receiver" name="receiver" placeholder="받는 사람" type="text">
                 <input class="span3" id="message" name="message" placeholder="메세지 내용" type="textarea">
-                <button class="btn btn-warning" type="submit" onClick="post_alarm">확인</button>
+                <button class="btn btn-warning" type="submit" onClick="post_alarm()">확인</button>
             </form>
         </div>
     </div>
