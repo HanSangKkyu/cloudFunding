@@ -69,6 +69,7 @@
                             <tr class="bg-primary">
                                 <th>스크럼 이름</th>
                                 <th>상태</th>
+                                <th>삭제</th>
                             </tr>
                         </thead>
                         <tbody id="tbox">
@@ -114,9 +115,12 @@
                     var i = 0;
                     data.forEach(function (child) {
                         console.log(child);
-                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value=' + child.s_name + '/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="all">개발전</option><option value="game">개발중</option><option value="life">개발후</option></select></td></tr>');
-                        $(".state").eq(i).attr("selected", child.state);
-                        console.log(child.state);
+                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value=' + child.s_name + '/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="개발전">개발전</option><option value="개발중">개발중</option><option value="개발후">개발후</option></select></td><td><button class="btn btn-primary" onclick="deleteScrum(this)">삭제</button></td></tr>');
+
+                        //select 맞춰주기
+                        var option = $(".state").eq(i).children('option[value="' + child.state + '"]');
+                        option.attr('selected', true);
+
                         i++;
                     });
                 },
@@ -125,6 +129,10 @@
                 }
             });
         });
+
+        function deleteScrum() {
+
+        }
     </script>
 </body>
 

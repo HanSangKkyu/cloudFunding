@@ -1,44 +1,45 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js">
-      function post_alarm() {
-        var d = {
-            "project_num": $('#projectNum').val(),
-            "receiver": $('#receiver').val(),
-            "sender": $('#sender').val(),
-            "message": $('#message').val()
-        };
+ <!--   <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
 
-        console.log(d);
+    <script>
+        function post_alarm() {
+            var d = {
+                "project_num": $('#projectNum').val(),
+                "receiver": $('#receiver').val(),
+                "sender": $('#sender').val(),
+                "message": $('#message').val()
+            };
 
-        $.ajax({
-            url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
-            type: 'POST',
-            dataType: "JSON",
-            contentType: "application/json",
-            data: JSON.stringify(d),
-            crossDomain: true,
-            cache: false,
-            success: function (data) {
-                console.log(data);
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-    }
-    //후원자 알람 보내는 함수 
-</script>
+            console.log(d);
 
-<title>Half Slider - Start Bootstrap Template</title>
+            $.ajax({
+                url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+                type: 'POST',
+                dataType: "JSON",
+                contentType: "application/json",
+                data: JSON.stringify(d),
+                crossDomain: true,
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+        //후원자 알람 보내는 함수
+    </script>
+
+    <title>Half Slider - Start Bootstrap Template</title>
 </head>
 <body>
     <div style="width:310px; height:500px; text-align:center; margin:0 auto; vertical-align:central;">
@@ -49,8 +50,8 @@
                 <input class="span3" id="projectNum" name="projectnum" placeholder="프로젝트 번호" type="text">
                 <input class="span3" id="sender" name="sender" placeholder="보내는 사람" type="text">
                 <input class="span3" id="receiver" name="receiver" placeholder="받는 사람" type="text">
-                <input class="span3" id="message" name="message" placeholder="메세지 내용" type="textarea">
-                <button class="btn btn-warning" type="submit" onClick="post_alarm()">확인</button>
+                <textarea class="span3" id="message" name="message" placeholder="메세지 내용" type="textarea"></textarea>
+                <button type="button" class="btn btn-warning" onClick="post_alarm()">확인</button>
             </form>
         </div>
     </div>
