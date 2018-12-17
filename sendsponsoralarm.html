@@ -8,9 +8,65 @@
 
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js">
+        function get_sponsor_ids() {
+           var d = {
+            "project_num": $('#projectNum').val(),
+        };
 
-    <title>Half Slider - Start Bootstrap Template</title>
+        console.log(d);
+
+        $.ajax({
+            url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+            type: 'GET',
+            dataType: "JSON",
+            contentType: "application/json",
+            data: JSON.stringify(d),
+            crossDomain: true,
+            cache: false,
+            success: function (data) {
+              return data;
+          },
+          error: function (e) {
+            console.log(e);
+        }
+    });
+    } //아이디 가져오는 함수  
+
+    function sponsor_alarm(){
+       var ids=get_sponsor_ids();
+       var query=Array();
+       for(var i=1;i<=ids.length();i++){
+        var obj=new Object();
+        obj.project_num=$('#projectNum').val();
+        obj.receiver=ids[i];
+        obj.sender=localStorage.id;
+        obj.message=$('#message').val();
+        query.push(obj);
+    }
+    for(var i=1;i<=ids.length();i++){
+        $.ajax({
+          url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+          type: 'POST',
+          dataType: "JSON",
+          contentType: "application/json",
+          data: JSON.stringify(query[i]),
+          crossDomain: true,
+          cache: false,
+          success: function (data) {
+            console.log(data);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+
+    });
+    } //후원자 알람 보내는 함수 
+
+}
+</script>
+
+<title>Half Slider - Start Bootstrap Template</title>
 </head>
 <body>
     <div style="width:310px; height:500px; text-align:center; margin:0 auto; vertical-align:central;">
@@ -18,10 +74,9 @@
         <div class="span3 well" style=" text-align:center; align-content:center; vertical-align:central; margin-top: 90%;">
             <legend>후원자 알람 보내기</legend>
             <form accept-charset="UTF-8" action="" method="post">
-                <input class="span3" name="projectnum" placeholder="프로젝트 번호" type="text">
-                <input class="span3" name="receiver" placeholder="받는 사람" type="text">
-                <input class="span3" name="message" placeholder="메세지 내용" type="textarea">
-                <button class="btn btn-warning" type="submit">확인</button>
+                <input class="span3" id="projectNum" name="projectnum" placeholder="프로젝트 번호" type="text">
+                <input class="span3" id="message" name="message" placeholder="메세지 내용" type="textarea">
+                <button class="btn btn-warning" type="submit" onClick="sponsor_alarm">확인</button>
             </form>
         </div>
     </div>
