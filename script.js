@@ -112,6 +112,10 @@ function getSponsor() {
 }
 
 function support() {
+    if (localStorage.cash < $('#cashInput').val()) {
+        return;
+    }
+
     var d = {
         "project_num": localStorage.project,
         "id": localStorage.id,
@@ -130,6 +134,8 @@ function support() {
         cache: false,
         success: function (data) {
             console.log(data);
+            localStorage.cash = localStorage.cash * 1 - $('#cashInput').val() * 1;
+            cash_update();
         },
         error: function (e) {
             console.log(e);
@@ -240,4 +246,28 @@ function mostra(val) {
 
 }
 
+function cash_update() {
+    var d = {
+        "cash": localStorage.cash,
+        "id": localStorage.id
+    };
+
+    console.log(d);
+
+    $.ajax({
+        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/user',
+        type: 'PUT',
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(d),
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
 
