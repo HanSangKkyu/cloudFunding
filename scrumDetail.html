@@ -115,7 +115,7 @@
                     var i = 0;
                     data.forEach(function (child) {
                         console.log(child);
-                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value=' + child.s_name + '/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="개발전">개발전</option><option value="개발중">개발중</option><option value="개발후">개발후</option></select></td><td><button class="btn btn-primary" onclick="deleteScrum(this)">삭제</button></td></tr>');
+                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value=' + child.s_name + '/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="개발전">개발전</option><option value="개발중">개발중</option><option value="개발후">개발후</option></select></td><td><input class="deletePick" type="checkbox"/></td></tr>');
 
                         //select 맞춰주기
                         var option = $(".state").eq(i).children('option[value="' + child.state + '"]');
