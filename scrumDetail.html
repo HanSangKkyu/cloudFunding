@@ -58,7 +58,7 @@
                 <span>
                     프로젝트 스크럼을 수정, 생성, 삭제할 수 있는 페이지입니다.
                 </span>
-                <button class="btn btn-primary" style="float:right;">저장</button>
+                <button class="btn btn-primary" style="float:right;" onclick="saveAll()">저장</button>
             </div>
 
 
@@ -101,6 +101,7 @@
     </footer>
 
     <script>
+        var allData;
         $(function () {
             $.ajax({
                 url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
@@ -111,6 +112,7 @@
                 cache: false,
                 success: function (data) {
                     console.log(data);
+                    allData = data;
                     // 성공적으로 받았다면
                     var i = 0;
                     data.forEach(function (child) {
@@ -130,8 +132,34 @@
             });
         });
 
-        function deleteScrum() {
+        function saveAll() {
+            // 모든 내용 업데이트 하기
+            var i = 0;
+            allData.forEach(function (child) {
+                var d = {
+                    "s_name": $(".scrum-name").eq(i).val(),
+                    "state": $(".state option:selected").eq(i).val(),
+                    "s_num": child.s_num
+                };
 
+                console.log(d.state);
+                $.ajax({
+                    url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+                    type: 'PUT',
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    data: JSON.stringify(d),
+                    crossDomain: true,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+                i++;
+            });
         }
     </script>
 </body>
