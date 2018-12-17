@@ -181,60 +181,80 @@ function todayproject_alarm() {
     });
 }
 function get_sponsor_ids() {
- var d = {
-    "project_num": $('#projectNum').val(),
-};
+    var d = {
+        "project_num": $('#projectNum').val(),
+    };
 
-console.log(d);
+    console.log(d);
 
-$.ajax({
-    url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
-    type: 'GET',
-    dataType: "JSON",
-    contentType: "application/json",
-    data: JSON.stringify(d),
-    crossDomain: true,
-    cache: false,
-    success: function (data) {
-      return data;
-  },
-  error: function (e) {
-    console.log(e);
-}
-});
-}
-
-function sponsor_alarm(){
-   var ids=get_sponsor_ids();
-   var query=Array();
-   for(var i=1;i<=ids.length();i++){
-    var obj=new Object();
-    obj.project_num=$('#projectNum').val();
-    obj.receiver=ids[i];
-    obj.sender=localStorage.id;
-    obj.message=$('#message').val();
-    query.push(obj);
-}
-for(var i=1;i<=ids.length();i++){
     $.ajax({
-      url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
-      type: 'POST',
-      dataType: "JSON",
-      contentType: "application/json",
-      data: JSON.stringify(query[i]),
-      crossDomain: true,
-      cache: false,
-      success: function (data) {
-        console.log(data);
-  },
-  error: function (e) {
-    console.log(e);
+        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+        type: 'GET',
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(d),
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+            return data;
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }
 
-});
-}
+function sponsor_alarm() {
+    var ids = get_sponsor_ids();
+    var query = Array();
+    for (var i = 1; i <= ids.length(); i++) {
+        var obj = new Object();
+        obj.project_num = $('#projectNum').val();
+        obj.receiver = ids[i];
+        obj.sender = localStorage.id;
+        obj.message = $('#message').val();
+        query.push(obj);
+    }
+    for (var i = 1; i <= ids.length(); i++) {
+        $.ajax({
+            url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+            type: 'POST',
+            dataType: "JSON",
+            contentType: "application/json",
+            data: JSON.stringify(query[i]),
+            crossDomain: true,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+
+        });
+    }
 
 }
 function mostra(val) {
 
+}
+
+
+function getScrum() {
+    $.ajax({
+        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+        type: 'GET',
+        dataType: "JSON",
+        contentType: "application/json",
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+            console.log(data);
+            $('#result').text(JSON.stringify(data));
+            console.log($('#result').text());
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }
