@@ -16,17 +16,21 @@
     <div style="width:310px; height:500px; text-align:center; margin:0 auto; vertical-align:central;">
 
         <div class="span3 well" style=" text-align:center; align-content:center; vertical-align:central; margin-top: 90%;">
-            <legend>충전하기</legend>
+            <legend>후원하기</legend>
             <form accept-charset="UTF-8" action="" method="post">
                 <div>
-                    <span>현재 금액 : </span>
-                    <span>12364</span>
+                    <span>보유 캐시 : </span>
+                    <span id="havingCash">12364</span>
                 </div>
-                <input id="cashInput" class="span3" name="name" placeholder="충전할 금액" type="text" value="">
-                <button class="btn btn-warning" type="button" onclick="charge()">확인</button>
+                <input id="cashInput" class="span3" name="name" placeholder="후원할 금액" type="text" value="">
+                <button class="btn btn-warning" type="button" onclick="support()">확인</button>
             </form>
         </div>
     </div>
-
+    <script>
+        $(function () {
+            $('#havingCash').text(localStorage.cash);
+        });
+    </script>
 </body>
 </html>

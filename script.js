@@ -83,6 +83,7 @@ function charge() {
         success: function (data) {
             console.log(data);
             localStorage.cash = d.cash;
+            console.log(localStorage.id + " cash :" + localStorage.cash);
         },
         error: function (e) {
             console.log(e);
@@ -112,7 +113,7 @@ function getSponsor() {
 
 function support() {
     var d = {
-        "project_num": $('#projectNum').val(),
+        "project_num": localStorage.project,
         "id": localStorage.id,
         "cash": $('#cashInput').val()
     };
