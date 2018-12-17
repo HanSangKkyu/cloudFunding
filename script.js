@@ -180,7 +180,59 @@ function todayproject_alarm() {
         }
     });
 }
+function get_sponsor_ids() {
+     var d = {
+        "project_num": $('#projectNum').val(),
+    };
 
+    console.log(d);
+
+    $.ajax({
+        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+        type: 'GET',
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(d),
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+          return data;
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+}
+
+function sponsor_alarm(){
+   var ids=get_sponsor_ids();
+    var d = {
+        "project_num": $('#projectNum').val(),
+        "receiver": $('#receiver').val(),
+        "sender": localStorage.id,
+        "message": $('#message').val()
+    };
+$.ajax({
+  url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/alert',
+        type: 'GET',
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(d),
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+            var s={
+              "id" : data,
+              "project_num" : $('#projectNum').val()
+            };
+            sponsor_alarm(s);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+
+});
+}
 function mostra(val) {
 
 }
