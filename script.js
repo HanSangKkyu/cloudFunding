@@ -240,21 +240,3 @@ function mostra(val) {
 }
 
 
-function getScrum() {
-    $.ajax({
-        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
-        type: 'GET',
-        dataType: "JSON",
-        contentType: "application/json",
-        crossDomain: true,
-        cache: false,
-        success: function (data) {
-            console.log(data);
-            $('#result').text(JSON.stringify(data));
-            console.log($('#result').text());
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
-}

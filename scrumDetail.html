@@ -71,9 +71,9 @@
                                 <th>상태</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbox">
                             <!-- para abrir em outra aba adicionar target="_blank" -->
-                            <tr>
+                            <!--<tr>
                                 <td><input type="text" class="scrum-name" /></td>
                                 <td>
                                     <select name="selectValue" onchange="mostra(this.value)" style="width:178px;">
@@ -82,7 +82,8 @@
                                         <option value="life">개발후</option>
                                     </select>
                                 </td>
-                            </tr>
+                            </tr>-->
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -100,7 +101,29 @@
 
     <script>
         $(function () {
-            console.log("ready!");
+            $.ajax({
+                url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+                type: 'GET',
+                dataType: "JSON",
+                contentType: "application/json",
+                crossDomain: true,
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    // 성공적으로 받았다면
+                    var i = 0;
+                    data.forEach(function (child) {
+                        console.log(child);
+                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value=' + child.s_name + '/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="all">개발전</option><option value="game">개발중</option><option value="life">개발후</option></select></td></tr>');
+                        $(".state").eq(i).attr("selected", child.state);
+                        console.log(child.state);
+                        i++;
+                    });
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         });
     </script>
 </body>
