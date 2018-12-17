@@ -108,7 +108,23 @@
         <!-- /.container -->
     </footer>
 
-
+<script type="text/javascript">
+        $.ajax({
+        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
+        type: 'GET',
+        dataType: "JSON",
+        contentType: "application/json",
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+            console.log(data);
+           
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+</script>
 </body>
 
 </html>
