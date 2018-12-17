@@ -117,7 +117,7 @@
                     var i = 0;
                     data.forEach(function (child) {
                         console.log(child);
-                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value=' + child.s_name + '/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="개발전">개발전</option><option value="개발중">개발중</option><option value="개발후">개발후</option></select></td><td><input class="deletePick" type="checkbox"/></td></tr>');
+                        $('#tbox').append('<tr><td><input type="text" class="scrum-name" value="' + child.s_name + '"/></td><td><select class="state" name="selectValue" onchange="mostra(this.value)" style="width:178px;"><option value="개발전">개발전</option><option value="개발중">개발중</option><option value="개발후">개발후</option></select></td><td><input class="deletePick" type="checkbox"/></td></tr>');
 
                         //select 맞춰주기
                         var option = $(".state").eq(i).children('option[value="' + child.state + '"]');
@@ -136,29 +136,55 @@
             // 모든 내용 업데이트 하기
             var i = 0;
             allData.forEach(function (child) {
-                var d = {
-                    "s_name": $(".scrum-name").eq(i).val(),
-                    "state": $(".state option:selected").eq(i).val(),
-                    "s_num": child.s_num
-                };
+                if ($('.deletePick').eq(i).is(":checked")) {
+                    // 만약 삭제해야 할 대상이라면
+                    var d = {
+                        "s_num": child.s_num
+                    };
 
-                console.log(d.state);
-                $.ajax({
-                    url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
-                    type: 'PUT',
-                    dataType: "JSON",
-                    contentType: "application/json",
-                    data: JSON.stringify(d),
-                    crossDomain: true,
-                    cache: false,
-                    success: function (data) {
-                        console.log(data);
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
+                    console.log(d.state);
+                    $.ajax({
+                        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+                        type: 'DELETE',
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        data: JSON.stringify(d),
+                        crossDomain: true,
+                        cache: false,
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                } else {
+                    // 아니라면
+                    var d = {
+                        "s_name": $(".scrum-name").eq(i).val(),
+                        "state": $(".state option:selected").eq(i).val(),
+                        "s_num": child.s_num
+                    };
+
+                    console.log($(".scrum-name").eq(i).val());
+                    $.ajax({
+                        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+                        type: 'PUT',
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        data: JSON.stringify(d),
+                        crossDomain: true,
+                        cache: false,
+                        success: function (data) {
+                            console.log(data);
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
+                    });
+                }
                 i++;
+
             });
         }
     </script>
