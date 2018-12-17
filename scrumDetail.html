@@ -54,11 +54,17 @@
     <section class="py-5">
         <div class="container">
             <h1>스크럼 수정</h1>
+            <p>
+                프로젝트 스크럼을 수정, 생성, 삭제할 수 있는 페이지입니다.
+            </p>
             <div style="overflow:hidden;">
-                <span>
-                    프로젝트 스크럼을 수정, 생성, 삭제할 수 있는 페이지입니다.
-                </span>
-                <button class="btn btn-primary" style="float:right;" onclick="saveAll()">저장</button>
+                <input id="scrumInput" type="text" value="" placeholder="스크럼 이름" style="width: 45%" />
+                <select id="state-pick" style="height: 30px;width: 45%;">
+                    <option value="개발전">개발전</option>
+                    <option value="개발중">개발중</option>
+                    <option value="개발후">개발후</option>
+                </select>
+                <button class="btn btn-primary" style="float:right; width: 8%;" onclick="saveAll()">저장</button>
             </div>
 
 
@@ -184,8 +190,33 @@
                     });
                 }
                 i++;
-
             });
+            // 만약 추가 할게 있다면
+            if ($('#scrumInput').val().length > 0) {
+                localStorage.project = 1;
+                var d = {
+                    "project_num": localStorage.project,
+                    "s_name": $('#scrumInput').val(),
+                    "state": $("#state-pick option:selected").val()
+                };
+
+                console.log($(".scrum-name").eq(i).val());
+                $.ajax({
+                    url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+                    type: 'POST',
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    data: JSON.stringify(d),
+                    crossDomain: true,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
         }
     </script>
 </body>
