@@ -157,11 +157,16 @@
         function goDetail(val) {
             console.log(allData);
             var index = $(".project-row").index(val);
+            //  프로젝트의 모든 정보 가지고 있기
             localStorage.project = allData[index].project_num;
+            localStorage.name = allData[index].name;
+            localStorage.hfunding = allData[index].hfunding;
+            localStorage.Explanation = allData[index].Explanation;
+            localStorage.nfunding = allData[index].nfunding;
             location.href = 'projectDetail.html';
         }
 
-       
+
     </script>
 
 </body>

@@ -264,6 +264,7 @@ function cash_update() {
         cache: false,
         success: function (data) {
             console.log(data);
+            pro_nfund_update();
         },
         error: function (e) {
             console.log(e);
@@ -273,4 +274,32 @@ function cash_update() {
 
 function goCreatPro() {
     location.href = 'creatPro.html';
+}
+
+function pro_nfund_update() {
+    var d = {
+        "name": localStorage.name,
+        "hfunding": localStorage.hfunding,
+        "Explanation": localStorage.Explanation,
+        "nfunding": localStorage.nfunding * 1 + $('#cashInput').val() * 1,
+        "project_num": localStorage.project
+    };
+
+    console.log(d);
+
+    $.ajax({
+        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
+        type: 'PUT',
+        dataType: "JSON",
+        contentType: "application/json",
+        data: JSON.stringify(d),
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }

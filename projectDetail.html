@@ -114,6 +114,13 @@
         var allData;
         var ownerTop;
         $(function () {
+            //확인용
+            console.log(localStorage.project);
+            console.log(localStorage.name);
+            console.log(localStorage.hfunding);
+            console.log(localStorage.Explanation);
+            console.log(localStorage.nfunding);
+
             $.ajax({
                 url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
                 type: 'GET',
@@ -147,6 +154,7 @@
                             $('#owner').text(child.owner);
                             ownerTop = child.owner;
                             $('#hfunding').text(child.hfunding);
+                            $('#nfunding').text(child.nfunding);
                             $('#explanation').text(child.Explanation);
                             //번호 관련 제어 해주어야함.
                         }
