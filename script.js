@@ -271,3 +271,6 @@ function cash_update() {
     });
 }
 
+function goCreatPro() {
+    Location.href = 'creatPro.html';
+}

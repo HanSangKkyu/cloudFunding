@@ -59,8 +59,8 @@
                 <input type="text" style="float:right; width:200px;" placeholder="후원할 금액" class="form-control" />
             </div>
             <h5>장르</h5>
-            <span id="ref_num">&nbsp;&nbsp;&nbsp;</span>
-            <span>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+            <span id="ref_num">
                 게임
             </span>
             <h5>개발자</h5>
@@ -86,7 +86,7 @@
             <div style="overflow:hidden;">
                 <div style="overflow:hidden;">
                     <h2 style="float:left;">스크럼 정보</h2>
-                    <button style="float:right;" class="btn btn-primary">스크럼 수정</button>
+                    <button style="float:right;" class="btn btn-primary" onclick="goScrumDetail()">스크럼 수정</button>
                 </div>
                 <div id="before" style="float:left; width:30%;">
                     <h5>개발전</h5>
@@ -131,7 +131,20 @@
                         console.log(child);
                         if (child.project_num == localStorage.project) {//현재 프로젝트 넘버로 통신
                             $('#project_name').text(child.name);
-                            $('#ref_num').text(child.ref_num);
+                            switch (child.ref_num) {
+                                case 1:
+                                    $('#ref_num').text('게임');
+                                    break;
+                                case 2:
+                                    $('#ref_num').text('생활');
+                                    break;
+                                case 3:
+                                    $('#ref_num').text('패션');
+                                    break;
+                                case 4:
+                                    $('#ref_num').text('기타');
+                                    break;
+                            }
                             $('#owner').text(child.owner);
                             $('#hfunding').text(child.hfunding);
                             $('#explanation').text(child.Explanation);
@@ -176,6 +189,10 @@
                 }
             });
         });
+
+        function goScrumDetail() {
+            location.href = "scrumDetail.html";
+        }
     </script>
 </body>
 

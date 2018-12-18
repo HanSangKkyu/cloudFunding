@@ -54,10 +54,10 @@
     <section class="py-5">
         <div class="container">
             <h1>PROJECT LIST</h1>
-            <p>
+            <span>
                 등록된 모든 프로젝트를 검색할 수 있습니다.
-            </p>
-
+            </span>
+            <button type="button" class="btn btn-primary" style="float:right;" onclick="goCreatPro()">프로젝트 생성</button>
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
             <div class="container">
                 <br />
@@ -109,7 +109,6 @@
 
                     </table>
                 </div>
-                <button type="button" class="btn btn-secondary">프로젝트 등록</button>
             </div>
         </div>
 
@@ -126,6 +125,7 @@
     <script type="text/javascript">
         var allData;
         function onSearch() {//변수로 받앚는 부분 필요
+            allData = [];
             $.ajax({
                 url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
                 type: 'GET',
@@ -135,14 +135,16 @@
                 cache: false,
                 success: function (data) {
                     console.log(data);
-                    allData = data;
                     // 성공적으로 받았다면
+                    var i = 0;
                     data.forEach(function (child) {
                         console.log(child.name);
                         console.log($('#keyword').val());
                         if (child.name.indexOf($('#keyword').val()) != -1) {//키워드 검색
+                            allData[i] = child;
                             $('#content').text('');
                             $('#content').append('<tr class="project-row" onclick="goDetail(this)"><td>' + child.project_num + '</td><td>' + child.name + '</td><td>' + child.owner + '</td><td>' + child.nfunding + '</td></tr>');
+                            i++;
                         }
                     });
                 },
@@ -153,6 +155,7 @@
         }
 
         function goDetail(val) {
+            console.log(allData);
             var index = $(".project-row").index(val);
             localStorage.project = allData[index].project_num;
             location.href = 'projectDetail.html';
