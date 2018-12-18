@@ -88,14 +88,17 @@
                     <h2 style="float:left;">스크럼 정보</h2>
                     <button style="float:right;" class="btn btn-primary">스크럼 수정</button>
                 </div>
-                <div style="float:left; width:30%;">개발전</div>
-                <div style="float:left; width:30%;">개발중</div>
-                <div style="float:left; width:30%;">개발후</div>
-            </div>
-            <div style="overflow:hidden;">
-                <div style="float:left; width:30%;">개발전1</div>
-                <div style="float:left; width:30%;">개발중1</div>
-                <div style="float:left; width:30%;">개발후1</div>
+                <div id="before" style="float:left; width:30%;">
+                    <h5>개발전</h5>
+                </div>
+                <div id="ing" style="float:left; width:30%;">
+                    <h5>개발중</h5>
+
+                </div>
+                <div id="after" style="float:left; width:30%;">
+                    <h5>개발후</h5>
+
+                </div>
             </div>
         </div>
     </section>
@@ -110,33 +113,68 @@
 
     <script type="text/javascript">
         var allData;
-        $.ajax({
-            url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
-            type: 'GET',
-            dataType: "JSON",
-            contentType: "application/json",
-            crossDomain: true,
-            cache: false,
-            success: function (data) {
-                console.log(data);
-                allData = data;
-                // 성공적으로 받았다면
-                var i = 0;
-                data.forEach(function (child) {
-                    console.log(child);
-                    if (child.project_num == localStorage.project) {//현재 프로젝트 넘버로 통신
-                        $('#project_name').text(child.name);
-                        $('#ref_num').text(child.ref_num);
-                        $('#owner').text(child.owner);
-                        $('#hfunding').text(child.hfunding);
-                        $('#explanation').text(child.Explanation);
-                        //번호 관련 제어 해주어야함.
-                    }
-                });
-            },
-            error: function (e) {
-                console.log(e);
-            }
+
+        $(function () {
+            $.ajax({
+                url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
+                type: 'GET',
+                dataType: "JSON",
+                contentType: "application/json",
+                crossDomain: true,
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    allData = data;
+                    // 성공적으로 받았다면
+                    var i = 0;
+                    data.forEach(function (child) {
+                        console.log(child);
+                        if (child.project_num == localStorage.project) {//현재 프로젝트 넘버로 통신
+                            $('#project_name').text(child.name);
+                            $('#ref_num').text(child.ref_num);
+                            $('#owner').text(child.owner);
+                            $('#hfunding').text(child.hfunding);
+                            $('#explanation').text(child.Explanation);
+                            //번호 관련 제어 해주어야함.
+                        }
+                    });
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+            $.ajax({
+                url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project/scrum',
+                type: 'GET',
+                dataType: "JSON",
+                contentType: "application/json",
+                crossDomain: true,
+                cache: false,
+                success: function (data) {
+                    console.log(data);
+                    // 성공적으로 받았다면
+                    data.forEach(function (child) {
+                        if (child.project_num.toString() == localStorage.project.toString()) {
+                            console.log(child.state);
+                            switch (child.state) {
+                                case "개발전":
+                                    $('#before').append('<p>' + child.s_name + '</p>');
+                                    break;
+                                case "개발중":
+                                    $('#ing').append('<p>' + child.s_name + '</p>');
+                                    break;
+                                case "개발후":
+                                    $('#after').append('<p>' + child.s_name + '</p>');
+                                    break;
+                            }
+                        }
+                    });
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
         });
     </script>
 </body>
