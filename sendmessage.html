@@ -10,11 +10,18 @@
  <!--   <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
 
     <script>
+        $(function () {
+            if (localStorage.id == undefined) {
+                alert('로그인 후 이용가능 합니다.');
+                history.back();
+                return;
+            }
+        });
         function post_alarm() {
             var d = {
-                "project_num": $('#projectNum').val(),
-                "receiver": $('#receiver').val(),
-                "sender": $('#sender').val(),
+                "project_num": localStorage.project,
+                "receiver": localStorage.owner,
+                "sender": localStorage.id,
                 "message": $('#message').val()
             };
 
@@ -47,9 +54,6 @@
         <div class="span3 well" style=" text-align:center; align-content:center; vertical-align:central; margin-top: 90%;">
             <legend>메세지 보내기(문의)</legend>
             <form accept-charset="UTF-8" action="" method="post">
-                <input class="span3" id="projectNum" name="projectnum" placeholder="프로젝트 번호" type="text">
-                <input class="span3" id="sender" name="sender" placeholder="보내는 사람" type="text">
-                <input class="span3" id="receiver" name="receiver" placeholder="받는 사람" type="text">
                 <textarea class="span3" id="message" name="message" placeholder="메세지 내용" type="textarea"></textarea>
                 <button type="button" class="btn btn-warning" onClick="post_alarm()">확인</button>
             </form>

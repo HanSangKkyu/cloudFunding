@@ -23,26 +23,32 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Cloud Funding</a>
+            <a class="navbar-brand" href="index.html">Cloud Funding</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            Home
+                        <a class="nav-link" href="login.html">
+                            Login
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="signup.html">Singup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
+                        <a class="nav-link" href="project.html">Project</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="charge.html">Cash</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sponsorList.html">Refer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="alertList.html">Alarm</a>
                     </li>
                 </ul>
             </div>
@@ -56,7 +62,9 @@
             <div style="overflow:hidden">
                 <h1 id="project_name" style="float:left;">PROJECT NAME</h1>
                 <button style="float:right;" class="btn btn-primary" onclick="goSupport()">후원하기</button>
-                <button style="float:right;" class="btn btn-primary" onclick="goModify()">수정하기</button>
+                <button style="float:right;" class="btn btn-success" onclick="goModify()">수정하기</button>
+                <button style="float:right;" class="btn btn-danger" onclick="goSponMsg()">후원자에게 메시지 보내기</button>
+                <button style="float:right;" class="btn btn-warning" onclick="goSend()">문의하기</button>
             </div>
             <h5>장르</h5>
             <span>&nbsp;&nbsp;&nbsp;</span>
@@ -93,13 +101,12 @@
                 </div>
                 <div id="ing" style="float:left; width:30%;">
                     <h5>개발중</h5>
-
                 </div>
                 <div id="after" style="float:left; width:30%;">
                     <h5>개발후</h5>
-
                 </div>
             </div>
+            <button class="btn btn-danger" onclick="deletePro()">프로젝트 삭제하기</button>
         </div>
     </section>
 
@@ -199,6 +206,41 @@
             });
         });
 
+        function deletePro() {
+
+
+            if (localStorage.id == ownerTop) {
+
+                var d = {
+                    "project_num": localStorage.project
+                }
+
+                console.log(d);
+
+                $.ajax({
+                    url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
+                    type: 'DELETE',
+                    dataType: "JSON",
+                    data: JSON.stringify(d),
+                    contentType: "application/json",
+                    crossDomain: true,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data);
+
+                        setTimeout(function () {
+                            history.back();
+                        }, 1000);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            } else {
+                alert('프로젝트 주인이 아닙니다.');
+            }
+        }
+
         function goScrumDetail() {
             if (localStorage.id == ownerTop) {
                 location.href = "scrumDetail.html";
@@ -214,6 +256,19 @@
         function goModify() {
             location.href = "modifyPro.html";
         }
+
+        function goSponMsg() {
+            if (localStorage.id == ownerTop) {
+                location.href = "sendsponsoralarm.html";
+            } else {
+                alert('프로젝트 주인이 아닙니다.');
+            }
+        }
+
+        function goSend() {
+            location.href = "sendmessage.html";
+        }
+
     </script>
 </body>
 

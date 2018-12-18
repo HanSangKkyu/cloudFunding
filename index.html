@@ -21,7 +21,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">크라우드펀딩</a>
+            <a class="navbar-brand" href="index.html">Cloud Funding</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,6 +44,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="sponsorList.html">Refer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="alertList.html">Alarm</a>
                     </li>
                 </ul>
             </div>
@@ -153,7 +156,14 @@
         });
         function goDetail(val) {
             var index = $(".pro-name").index(val);
+            //  프로젝트의 모든 정보 가지고 있기
             localStorage.project = allData[index].project_num;
+            localStorage.name = allData[index].name;
+            localStorage.hfunding = allData[index].hfunding;
+            localStorage.Explanation = allData[index].Explanation;
+            localStorage.nfunding = allData[index].nfunding;
+            localStorage.owner = allData[index].owner;
+
             location.href = 'projectDetail.html';
         }
     </script>

@@ -10,6 +10,16 @@
     <!--   <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
 
     <script>
+        $(function () {
+            if (localStorage.id == undefined) {
+                alert('로그인 후 이용가능 합니다.');
+                history.back();
+                return;
+            }
+
+            $('#projectNum').val(localStorage.project)
+        });
+
         var ids;
         function get_sponsor_ids() {
             $.ajax({
@@ -74,7 +84,7 @@
         <div class="span3 well" style=" text-align:center; align-content:center; vertical-align:central; margin-top: 90%;">
             <legend>후원자 알람 보내기</legend>
             <form accept-charset="UTF-8" action="" method="post">
-                <input class="span3" id="projectNum" name="projectnum" placeholder="프로젝트 번호" type="text">
+                <input class="span3" id="projectNum" name="projectnum" placeholder="프로젝트 번호" type="text" disabled >
                 <textarea class="span3" id="message" name="message" placeholder="메세지 내용" type="textarea"></textarea>
                 <button class="btn btn-warning" type="button" onClick="get_sponsor_ids()">확인</button>
             </form>

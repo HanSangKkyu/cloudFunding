@@ -23,26 +23,32 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <a class="navbar-brand" href="index.html">Cloud Funding</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            Home
+                        <a class="nav-link" href="login.html">
+                            Login
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="signup.html">Singup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
+                        <a class="nav-link" href="project.html">Project</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="charge.html">Cash</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sponsorList.html">Refer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="alertList.html">Alarm</a>
                     </li>
                 </ul>
             </div>
@@ -93,6 +99,12 @@
     <script>
         var projectData;
         $(function () {
+            if (localStorage.id == undefined) {
+                alert('로그인 후 이용가능 합니다.');
+                history.back();
+                return;
+            }
+
             $.ajax({
                 url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
                 type: 'GET',
@@ -134,11 +146,12 @@
 
                         if (child.id == localStorage.id) { // 현재 로그인한 사용자의 결과만 보여준다.
 
-                            resultData[i] = child;
 
                             projectData.forEach(function (p_child) {
                                 if (p_child.project_num == child.project_num) {
                                     name = p_child.name;
+                                    resultData[i] = p_child;
+
                                     switch (p_child.ref_num) {
                                         case 1:
                                             kind = '게임';
@@ -153,6 +166,7 @@
                                             kind = '기타';
                                             break;
                                     }
+                                    projectData
                                 }
                             });
                             cash = child.cash;
@@ -172,7 +186,15 @@
         }
         function goDetail(val) {
             var index = $(".project-row").index(val);
+            //  프로젝트의 모든 정보 가지고 있기
             localStorage.project = resultData[index].project_num;
+            localStorage.name = resultData[index].name;
+            localStorage.hfunding = resultData[index].hfunding;
+            localStorage.Explanation = resultData[index].Explanation;
+            localStorage.nfunding = resultData[index].nfunding;
+            localStorage.owner = resultData[index].owner;
+
+
             location.href = 'projectDetail.html';
         }
     </script>
