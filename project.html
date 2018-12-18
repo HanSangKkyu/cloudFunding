@@ -138,8 +138,10 @@
                     allData = data;
                     // 성공적으로 받았다면
                     data.forEach(function (child) {
-                        console.log(child);
-                        if (child.name.indexOf($('#keyword').val())) {//키워드 검색
+                        console.log(child.name);
+                        console.log($('#keyword').val());
+                        if (child.name.indexOf($('#keyword').val()) != -1) {//키워드 검색
+                            $('#content').text('');
                             $('#content').append('<tr class="project-row" onclick="goDetail(this)"><td>' + child.project_num + '</td><td>' + child.name + '</td><td>' + child.owner + '</td><td>' + child.nfunding + '</td></tr>');
                         }
                     });
