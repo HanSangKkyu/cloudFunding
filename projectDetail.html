@@ -54,32 +54,32 @@
     <section class="py-5">
         <div class="container">
             <div style="overflow:hidden">
-                <h1 id = "project_name" style="float:left;">PROJECT NAME</h1>
+                <h1 id="project_name" style="float:left;">PROJECT NAME</h1>
                 <button style="float:right;" class="btn btn-primary">후원하기</button>
                 <input type="text" style="float:right; width:200px;" placeholder="후원할 금액" class="form-control" />
             </div>
             <h5>장르</h5>
-            <span id = "ref_num">&nbsp;&nbsp;&nbsp;</span>
+            <span id="ref_num">&nbsp;&nbsp;&nbsp;</span>
             <span>
                 게임
             </span>
-            <h5 >개발자</h5>
+            <h5>개발자</h5>
             <span>&nbsp;&nbsp;&nbsp;</span>
-            <span id = "owner">
+            <span id="owner">
                 testuser1
             </span>
             <h5>희망 모금액</h5>
             <span>&nbsp;&nbsp;&nbsp;</span>
-            <span id = "hfunding">
+            <span id="hfunding">
                 5000
             </span>
             <h5>현재 모금액</h5>
             <span>&nbsp;&nbsp;&nbsp;</span>
-            <span id = "nfunding">
+            <span id="nfunding">
                 0
             </span>
             <h5>설명</h5>
-            <span id = "explanation">&nbsp;&nbsp;&nbsp;</span>
+            <span id="explanation">&nbsp;&nbsp;&nbsp;</span>
             <span>
                 설명하자설명하자설명하자설명하자설명하자설명하자설명하자
             </span>
@@ -108,41 +108,37 @@
         <!-- /.container -->
     </footer>
 
-<script type="text/javascript">
+    <script type="text/javascript">
         var allData;
         $.ajax({
-        url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
-        type: 'GET',
-        dataType: "JSON",
-        contentType: "application/json",
-        crossDomain: true,
-        cache: false,
-        success: function (data) {
-            console.log(data);
-             allData = data;
-                    // 성공적으로 받았다면
-                    var i = 0;
-                    data.forEach(function (child) {
-                        console.log(child);
-                        if(child.project_num == ){//현재 프로젝트 넘버로 통신
-                            
-                            $(#project_name).text(child.project_num);
-                            $(#ref_num).text(child.ref_num);
-                            $(#owner).text(child.owner);
-                            $(#hfunding).text(child.hfunding);
-                            $(#explanation).text(child.Explanation);
-                            //번호 관련 제어 해주어야함.
-
-
-                            break;
-                        }
-                    }); 
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
-</script>
+            url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
+            type: 'GET',
+            dataType: "JSON",
+            contentType: "application/json",
+            crossDomain: true,
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                allData = data;
+                // 성공적으로 받았다면
+                var i = 0;
+                data.forEach(function (child) {
+                    console.log(child);
+                    if (child.project_num == localStorage.project) {//현재 프로젝트 넘버로 통신
+                        $('#project_name').text(child.name);
+                        $('#ref_num').text(child.ref_num);
+                        $('#owner').text(child.owner);
+                        $('#hfunding').text(child.hfunding);
+                        $('#explanation').text(child.Explanation);
+                        //번호 관련 제어 해주어야함.
+                    }
+                });
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    </script>
 </body>
 
 </html>
