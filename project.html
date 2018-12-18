@@ -123,8 +123,8 @@
     </footer>
 
     <script type="text/javascript">
+        var allData;
         function onSearch() {//변수로 받앚는 부분 필요
-            var allData;
             $.ajax({
                 url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
                 type: 'GET',
@@ -139,7 +139,7 @@
                     data.forEach(function (child) {
                         console.log(child);
                         if (child.name.indexOf($('#keyword').val())) {//키워드 검색
-                            $('#content').append('<tr><td>' + child.project_num + '</td><td>' + child.name + '</td><td>' + child.owner + '</td><td>' + child.nfunding + '</td></tr>');
+                            $('#content').append('<tr class="project-row" onclick="goDetail(this)"><td>' + child.project_num + '</td><td>' + child.name + '</td><td>' + child.owner + '</td><td>' + child.nfunding + '</td></tr>');
                         }
                     });
                 },
@@ -147,6 +147,12 @@
                     console.log(e);
                 }
             });
+        }
+
+        function goDetail(val) {
+            var index = $(".project-row").index(val);
+            localStorage.project = allData[index].project_num;
+            location.href = 'projectDetail.html';
         }
     </script>
 
