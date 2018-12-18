@@ -37,6 +37,9 @@
                 cache: false,
                 success: function (data) {
                     console.log(data);
+                    setTimeout(function () {
+                        history.back();
+                    }, 2000);
                 },
                 error: function (e) {
                     console.log(e);

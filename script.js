@@ -24,6 +24,10 @@ function login() {
             localStorage.password = data.password;
             localStorage.name = data.name;
             localStorage.cash = data.cash;
+
+            setTimeout(function () {
+                history.back();
+            }, 2000);
         },
         error: function (e) {
             console.log(e);
@@ -59,6 +63,10 @@ function signup() {
         cache: false,
         success: function (data) {
             console.log(data);
+
+            setTimeout(function () {
+                history.back();
+            }, 2000);
         },
         error: function (e) {
             console.log(e);
@@ -84,6 +92,10 @@ function charge() {
             console.log(data);
             localStorage.cash = d.cash;
             console.log(localStorage.id + " cash :" + localStorage.cash);
+
+            setTimeout(function () {
+                history.back();
+            }, 2000);
         },
         error: function (e) {
             console.log(e);
@@ -297,6 +309,10 @@ function pro_nfund_update() {
         cache: false,
         success: function (data) {
             console.log(data);
+
+            setTimeout(function () {
+                history.back();
+            }, 2000);
         },
         error: function (e) {
             console.log(e);

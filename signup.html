@@ -10,6 +10,8 @@
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 
+    <script src="script.js"></script>
+
     <title>Half Slider - Start Bootstrap Template</title>
 </head>
 <body>
@@ -18,10 +20,11 @@
         <div class="span3 well" style=" text-align:center; align-content:center; vertical-align:central; margin-top: 90%;">
             <legend>회원가입</legend>
             <form accept-charset="UTF-8" action="" method="post">
-                <input class="span3" name="name" placeholder="Full Name" type="text">
-                <input class="span3" name="username" placeholder="Username" type="text">
-                <input class="span3" name="password" placeholder="Password" type="password">
-                <button class="btn btn-warning" type="submit">가입하기</button>
+                <input id="nameInput" class="span3" name="id" placeholder="이름" type="text">
+                <input id="idInput" class="span3" name="username" placeholder="아이디" type="text">
+                <input id="pwInput" class="span3" name="password" placeholder="패스워드" type="password">
+                <input id="pwInput-c" class="span3" name="password-c" placeholder="패스워드 확인" type="password">
+                <button class="btn btn-warning" type="button" onclick="signup()">가입하기</button>
             </form>
         </div>
     </div>
