@@ -112,10 +112,10 @@ function getSponsor() {
 }
 
 function support() {
-    if (localStorage.cash < $('#cashInput').val()) {
+
+    if (localStorage.cash * 1 < $('#cashInput').val() * 1) {
         return;
     }
-
     var d = {
         "project_num": localStorage.project,
         "id": localStorage.id,
@@ -272,5 +272,5 @@ function cash_update() {
 }
 
 function goCreatPro() {
-    Location.href = 'creatPro.html';
+    location.href = 'creatPro.html';
 }

@@ -55,8 +55,7 @@
         <div class="container">
             <div style="overflow:hidden">
                 <h1 id="project_name" style="float:left;">PROJECT NAME</h1>
-                <button style="float:right;" class="btn btn-primary">후원하기</button>
-                <input type="text" style="float:right; width:200px;" placeholder="후원할 금액" class="form-control" />
+                <button style="float:right;" class="btn btn-primary" onclick="goSupport()">후원하기</button>
             </div>
             <h5>장르</h5>
             <span>&nbsp;&nbsp;&nbsp;</span>
@@ -79,7 +78,7 @@
                 0
             </span>
             <h5>설명</h5>
-            <span >&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;</span>
             <span id="explanation">
                 설명하자설명하자설명하자설명하자설명하자설명하자설명하자
             </span>
@@ -113,7 +112,7 @@
 
     <script type="text/javascript">
         var allData;
-
+        var ownerTop;
         $(function () {
             $.ajax({
                 url: 'https://ecseuah8l2.execute-api.ap-northeast-2.amazonaws.com/here/project',
@@ -146,6 +145,7 @@
                                     break;
                             }
                             $('#owner').text(child.owner);
+                            ownerTop = child.owner;
                             $('#hfunding').text(child.hfunding);
                             $('#explanation').text(child.Explanation);
                             //번호 관련 제어 해주어야함.
@@ -191,7 +191,15 @@
         });
 
         function goScrumDetail() {
-            location.href = "scrumDetail.html";
+            if (localStorage.id == ownerTop) {
+                location.href = "scrumDetail.html";
+            } else {
+                alert('프로젝트 주인이 아닙니다.');
+            }
+        }
+
+        function goSupport() {
+            location.href = "support.html";
         }
     </script>
 </body>
