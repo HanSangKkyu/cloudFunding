@@ -20,13 +20,17 @@
             <form accept-charset="UTF-8" action="" method="post">
                 <div>
                     <span>현재 금액 : </span>
-                    <span>12364</span>
+                    <span id="nowCash">12364</span>
                 </div>
                 <input id="cashInput" class="span3" name="name" placeholder="충전할 금액" type="text" value="">
                 <button class="btn btn-warning" type="button" onclick="charge()">확인</button>
             </form>
         </div>
     </div>
-
+    <script>
+        $(function () {
+            $('#nowCash').text(localStorage.cash);
+        });
+    </script>
 </body>
 </html>
